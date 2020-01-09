@@ -33,6 +33,7 @@ class PostSection extends Component {
                     posts : posts.data.slice(0,5),
                     isLoaded : true,
                 });
+                alert("not individual");
             });
         } else {
             console.log("individual post triggered");
@@ -41,6 +42,7 @@ class PostSection extends Component {
                     this.setState({
                         posts : [post.data]
                     });
+                    alert("is individual");
                 });
         }
     }
@@ -54,6 +56,7 @@ class PostSection extends Component {
                     <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
                 )
             });
+            console.log(postList);
         } else {
             postList = <Post title="No posts..."/>
         }
