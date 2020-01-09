@@ -49,16 +49,12 @@ class PostSection extends Component {
     render() {
         const posts = this.state.posts;
         let postList;
-        let postLinkList;
         if (this.state.posts) {
             postList  = posts.map(post => {
                 return (
                     <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
                 )
             });
-            console.log(postList);
-        } else {
-            postList = <Post title="No posts..."/>
         }
         
         return (
@@ -67,7 +63,7 @@ class PostSection extends Component {
                     <WrapperWhiteOverlay className="container">
                         <div className="row">
                             <div className="col-12 col-md-9">
-                                { postList }
+                                <Post title="Dummy data" content="<p>aaaa</p>" link="dummy-data" />
                             </div>
                             <div className="col-3 d-none d-md-flex d-lg-flex d-xl-flex">
                                 <div className="container pt-3 pb-3">
