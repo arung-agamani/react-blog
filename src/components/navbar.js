@@ -60,20 +60,7 @@ class Navbar extends Component {
                         </ul>
                     </div>
                 </header>
-    
-                <Switch>
-                    <Route path="/about">
-                        <Jumbotron />
-                    </Route>
-                    <Route path="/blog/:title" component={PostWrapper}>
-                    </Route>
-                    <Route path="/blog">
-                        <PostWrapper isIndividual={false} />
-                    </Route>
-                    <Route path="/">
-                        <Homepage />
-                    </Route>
-                </Switch>
+                <PostWrapper isIndividual={this.props.isIndividual} />
             </>
         );
     }

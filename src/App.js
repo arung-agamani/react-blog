@@ -4,6 +4,7 @@ import FadeIn from 'react-fade-in';
 
 import Homepage from "./components/homepage";
 import Navbar from "./components/navbar";
+import Jumbotron from "./components/jumbotron";
 
 class root extends Component {
   state = {
@@ -43,11 +44,16 @@ class root extends Component {
             </div>
 
             <Switch>
+              <Route path="/blog/:title" component={Navbar}>
+              </Route>
               <Route path="/blog">
-                <Navbar />
+                <Navbar isIndividual={false} />
               </Route>
               <Route path="/">
-                <Homepage isFromAnotherRoute="true" />
+                <Homepage />
+              </Route>
+              <Route path="/about">
+                  <Jumbotron />
               </Route>
             </Switch>
           </Router>

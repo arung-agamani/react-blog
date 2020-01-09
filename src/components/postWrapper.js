@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import Post from './post';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -33,7 +33,7 @@ class PostSection extends Component {
                     posts : posts.data.slice(0,5),
                     isLoaded : true,
                 });
-                alert("not individual");
+                // alert("not individual");
             });
         } else {
             console.log("individual post triggered");
@@ -42,7 +42,7 @@ class PostSection extends Component {
                     this.setState({
                         posts : [post.data]
                     });
-                    alert("is individual");
+                    // alert("is individual");
                 });
         }
     }
@@ -86,4 +86,4 @@ class PostSection extends Component {
     }
 }
 
-export default PostSection;
+export default withRouter(PostSection);
