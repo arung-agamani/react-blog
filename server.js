@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 const mongo_url = process.env.MONGO_URL;
@@ -32,8 +33,8 @@ app.use(bodyParser.urlencoded({ extended : true}));
 app.use(express.static(__dirname + '/dist'));
 app.options('*', cors());
 
-app.get('/', (req, res) => {
-    res.sendFile('./dist/index.html');
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
 app.post('/post', async (req, res) => {
