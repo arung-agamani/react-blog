@@ -55,7 +55,7 @@ class PostSection extends Component {
                 )
             });
         } else {
-            <Post title="No posts..."/>
+            postList = <Post title="No posts..."/>
         }
         
         return (
