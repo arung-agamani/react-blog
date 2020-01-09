@@ -70,7 +70,7 @@ class PostSection extends Component {
                     <WrapperWhiteOverlay className="container">
                         <div className="row">
                             <div className="col-12 col-md-9">
-                                { postList }
+                                { postList ? postList : (<Post title="aaaa" content="<p>aaaa</p>" link="aaaa" />) }
                             </div>
                             <div className="col-3 d-none d-md-flex d-lg-flex d-xl-flex">
                                 <div className="container pt-3 pb-3">
