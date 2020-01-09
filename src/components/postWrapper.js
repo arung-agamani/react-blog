@@ -30,33 +30,30 @@ class PostSection extends Component {
         if (this.props.isIndividual == false) {
             axios.post('http://127.0.0.1:3000/post')
             .then(posts => {
-                this.setState({
-                    posts : posts.data.slice(0,5),
-                    isLoaded : true,
-                });
-                if (this.state.posts) {
-                    postList  = this.state.posts.map(post => {
+                    postList  = posts.data.map(post => {
                         return (
                             <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
                         )
                     });
-                }
+                this.setState({
+                    posts : posts.data.slice(0,5),
+                    isLoaded : true,
+                });
                 // alert("not individual");
             });
         } else {
             console.log("individual post triggered");
             axios.post('http://127.0.0.1:3000/post/single', { "title" : this.props.match.params.title})
                 .then(post => {
+                    postList  = posts.data.map(post => {
+                        return (
+                            <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
+                        )
+                    });
                     this.setState({
                         posts : [post.data]
                     });
-                    if (this.state.posts) {
-                        postList  = this.state.posts.map(post => {
-                            return (
-                                <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
-                            )
-                        });
-                    }
+                    
                     // alert("is individual");
                 });
         }
