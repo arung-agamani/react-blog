@@ -45,22 +45,13 @@ class PostSection extends Component {
             console.log("individual post triggered");
             axios.post('/post/single', { "title" : this.props.match.params.title})
                 .then(post => {
-                    postList  = posts.data.map(post => {
-                        return (
-                            <Post title={post.title} content={post.blogContent} key={post._id} link={post.link} />
-                        )
-                    });
+                    postList  = (<Post title={post.data.title} content={post.data.blogContent} key={post.data._id} link={post.data.link} />)
                     this.setState({
                         posts : [post.data]
                     });
                     
                 });
         }
-        setInterval(() => {
-            this.setState({ timer : this.state.timer + 1});
-            // console.log(this.state.timer);
-            this.forceUpdate()
-        }, 1000);
         
     }
     render() {
