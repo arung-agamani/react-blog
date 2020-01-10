@@ -23,12 +23,13 @@ class PostSection extends Component {
     state = {
         placeholder : lorem,
         posts : [],
-        isLoaded : false
+        isLoaded : false,
+        timer : 1,
     }
     componentDidMount() {
         console.log(this.props);
         if (this.props.isIndividual == false) {
-            axios.post('http://127.0.0.1:3000/post')
+            axios.post('/post')
             .then(posts => {
                     postList  = posts.data.map(post => {
                         return (
@@ -39,11 +40,10 @@ class PostSection extends Component {
                     posts : posts.data.slice(0,5),
                     isLoaded : true,
                 });
-                // alert("not individual");
             });
         } else {
             console.log("individual post triggered");
-            axios.post('http://127.0.0.1:3000/post/single', { "title" : this.props.match.params.title})
+            axios.post('/post/single', { "title" : this.props.match.params.title})
                 .then(post => {
                     postList  = posts.data.map(post => {
                         return (
@@ -54,9 +54,13 @@ class PostSection extends Component {
                         posts : [post.data]
                     });
                     
-                    // alert("is individual");
                 });
         }
+        setInterval(() => {
+            this.setState({ timer : this.state.timer + 1});
+            // console.log(this.state.timer);
+            this.forceUpdate()
+        }, 1000);
         
     }
     render() {
@@ -67,7 +71,7 @@ class PostSection extends Component {
                     <WrapperWhiteOverlay className="container">
                         <div className="row">
                             <div className="col-12 col-md-9">
-                                { postList ? postList : (<Post title="aaaa" content="<p>aaaa</p>" link="aaaa" />) }
+                                { postList }
                             </div>
                             <div className="col-3 d-none d-md-flex d-lg-flex d-xl-flex">
                                 <div className="container pt-3 pb-3">
