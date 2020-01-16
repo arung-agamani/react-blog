@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+// const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const mongo_url = process.env.MONGO_URL;
@@ -16,13 +17,13 @@ const PostSchema = new mongoose.Schema({
     title : String,
     datePosted : {
         type : Date,
-        default : new Date(),
+        default : new Date()
     },
     author : String,
     description : String,
+    imageheader : String,
     blogContent : String,
     link : String,
-    blogContentDelta : Object,
 });
 
 const PostModel = mongoose.model('Post', PostSchema);
@@ -41,6 +42,34 @@ app.post('/post', async (req, res) => {
     const posts = await PostModel.find({}).sort('-datePosted');
     res.send(posts);
 });
+
+app.post('/crudPost', (req, res) => {
+    if (req.body.action == "UPDATE") {
+        if (req.body.password == process.env.HARUKA_PASSWORD) {
+            PostModel.findByIdAndUpdate(req.body.id, req.body.postData, (err, update) => {
+                if (err)
+                    res.send({status : "FAILED", message : "Database error"})
+                else
+                    res.send({status : "SUCCESS"})
+            });
+        } else {
+            res.send({status : "UNAUTHORIZED", message : "Unknown User"});
+        }
+    } else if (req.body.action == "CREATE") {
+        if (req.body.password == process.env.HARUKA_PASSWORD) {
+            PostModel.create(req.body.postData, (err, create) => {
+                if (err)
+                    res.send({status : "FAILED", message : "Database error"})
+                else
+                    res.send({status : "SUCCESS"})
+            })
+        } else {
+            res.send({status : "UNAUTHORIZED", message : "Unknown User"});
+        }
+    } else {
+        res.send({status : "FAILED", message : 'Unknown Action'});
+    }
+})
 
 app.post('/post/single', async (req, res) => {
     console.log(req.body);

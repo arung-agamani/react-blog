@@ -5,6 +5,8 @@ import FadeIn from 'react-fade-in';
 import Homepage from "./components/homepage";
 import Navbar from "./components/navbar";
 import Jumbotron from "./components/jumbotron";
+import EditPostMenu from "./components/EditPostMenu";
+import PostEditor from "./components/postEditor";
 
 class root extends Component {
   state = {
@@ -44,8 +46,9 @@ class root extends Component {
             </div>
 
             <Switch>
-              <Route path="/blog/:title" component={Navbar}>
-              </Route>
+              <Route path="/blogEditor/:title" component={PostEditor}/>
+              <Route path="/blogEditor" component={EditPostMenu}/>
+              <Route path="/blog/:title" component={Navbar}/>              
               <Route path="/blog">
                 <Navbar isIndividual={false} />
               </Route>
